@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 
 # Read the airline data into pandas dataframe
-spacex_df = pd.read_csv("spacex_launch_dash.csv")
+spacex_df = pd.read_csv("CSV_Files/spacex_launch_dash.csv")
 max_payload = spacex_df['Payload Mass (kg)'].max()
 min_payload = spacex_df['Payload Mass (kg)'].min()
 
@@ -21,6 +21,15 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                 # TASK 1: Add a dropdown list to enable Launch Site selection
                                 # The default select value is for ALL sites
                                 # dcc.Dropdown(id='site-dropdown',...)
+                                dcc.Dropdown(
+                                    id='site-dropdown',
+                                    options=[{'label': 'All Sites', 'value': 'ALL'}] +
+                                            [{'label': site, 'value': site} for site in spacex_df['Launch Site'].unique()],
+                                    value='ALL',
+                                    placeholder="Select a Launch Site here",
+                                    searchable=True
+                                ),
+
                                 html.Br(),
 
                                 # TASK 2: Add a pie chart to show the total successful launches count for all sites
