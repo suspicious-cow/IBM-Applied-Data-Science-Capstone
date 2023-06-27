@@ -6,10 +6,13 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import plotly.express as px
 
-# Read the airline data into pandas dataframe
+# Read the data into pandas dataframe
 spacex_df = pd.read_csv("CSV_Files/spacex_launch_dash.csv")
 max_payload = spacex_df['Payload Mass (kg)'].max()
 min_payload = spacex_df['Payload Mass (kg)'].min()
+
+# fix the typo in the launch site name from 'CCAFS LC-40' to 'CCAFS SLC-40'
+spacex_df['Launch Site'] = spacex_df['Launch Site'].replace('CCAFS LC-40', 'CCAFS SLC-40')
 
 # Create a dash application
 app = dash.Dash(__name__)
